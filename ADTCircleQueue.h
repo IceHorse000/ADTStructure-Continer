@@ -7,7 +7,6 @@
 
 ADTBEGIN
 ADTSUBBEGIN(CircleQueue)
-#include<memory>
 ADTCLASSBEGIN(CircleQueue)
 {
 	ADTARRATTYPE _data;

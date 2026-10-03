@@ -1,9 +1,8 @@
 #pragma once
 #include"ADTHelper.h"
 ADTBEGIN
-	namespace ADTSqList		//Dynamic Array?
+	namespace ADTSqList		//Dynamic Array
 	{
-#include<memory>
 		ADTCLASSBEGIN(SqList) {
 			std::unique_ptr<ElemType[]> elem = nullptr;
 			size_t Length = 0ull;

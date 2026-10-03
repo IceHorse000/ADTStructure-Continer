@@ -1,19 +1,17 @@
 ﻿#include<iostream>
 #include<chrono>
-#include"ADTCircleQueue.h"
-using namespace ADT::ADTCircleQueue;
+#include"ADTStack.h"
 using namespace std;
+using namespace ADT::ADTStack;
 int main()
 {
-	CircleQueue<int>Q;
-	InitCircleQueue(Q);
-	for (int i = 1; i < 15; i++)
-		EnQueue(Q, i);
+	SqStack<int> S;
+	InitSqStack(S);
+	for (int i = 0; i < 10; i++)
+		PushStack(S, i);
+	TranverseSqStack(S, [](auto i) {std::cout << i << '\n'; });
 	int pad = 0;
-	for (int i = 0; i < 5; i++)
-		DeQueue(Q, pad);
-	EnQueue(Q, pad);
-	TranverseCircleQueue(Q, [](int e) {std::cout << e << '\n'; });
-	std::cout << Q.near << " " << Q.rear << " " << Q.QueueSize << '\n';
-	DestroyCircleQueue(Q);
+	for (int i = 0; i < 3; i++)
+		PopStack(S, pad);
+	TranverseSqStack(S, [](auto i) {std::cout << i << '\n'; });
 }

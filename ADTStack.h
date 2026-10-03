@@ -1,67 +1,71 @@
 #pragma once
+#ifndef STACK
+#define STACK
+#endif // !STACK
+
 #include"ADTHelper.h"
 ADTBEGIN
-	namespace ADTStack		//Dynamic Array Based Stack
-	{
-#include<memory>
+	ADTSUBBEGIN(Stack)		//Dynamic Array Based Stack
 		ADTCLASSBEGIN(SqStack){
-			std::unique_ptr<ElemType[]> base = nullptr;
-			ElemType* top = nullptr;
+			ADTARRATTYPE base = nullptr;
+			ARGTYPE* top = nullptr;
 			size_t StackSize = 0;
 		};
 
 		ADTFUNCBEGIN
-		void InitStack(SqStack<ElemType>& S)
+		ASSIGNINIT(SqStack, S)
 		{
 			S.base = std::make_unique<ElemType[]>(ADTMAXSIZE);
 			S.top = S.base.get();
-		}
+		}ADTFUNCEND;
 
 		ADTFUNCBEGIN
-		void DestoryStack(SqStack<ElemType>& S)
+		ASSIGNDESTORY(SqStack, S)
 		{
 			S.top = nullptr;
 			S.base.reset();
 			S.StackSize = 0ull;
-		}
+		}ADTFUNCEND;
 
 		ADTFUNCBEGIN
-		void ClearStack(SqStack<ElemType>& S)
+		ASSIGNCLEAR(SqStack, S)
 		{
-			DestoryStack(S);
-			InitStack(S);
-		}
+			DestroySqStack(S);
+			InitSqStack(S);
+		}ADTFUNCEND;
 
 		ADTFUNCBEGIN
-		bool StackEmpty(SqStack<ElemType>& S)
+		ASSIGNEMPTY(SqStack, S)
 		{
 			return S.top == &(S.base[0]);
+		}ADTFUNCEND
+
+		ADTFUNCBEGIN
+		ASSIGNTOP(SqStack,S)
+		{
+			return SqStackEmpty(S) ? ElemType{} : *(S.top - 1);
 		}
 
 		ADTFUNCBEGIN
-		ElemType GetTop(SqStack<ElemType>& S)
+		ASSIGNPUSH(SqStack,S,ein)
 		{
-			return StackEmpty(S) ? ElemType{} : *(S.top - 1);
-		}
-
-		ADTFUNCBEGIN
-		void PushStack(SqStack<ElemType>& S, const ElemType& e)
-		{
-			if (S.StackSize >= ADTMAXSIZE)return;
+			if (S.StackSize >= ADTMAXSIZE)return false;
 			++S.top;
-			S.base[S.StackSize++] = e;
+			S.base[S.StackSize++] = ein;
+			return true;
 		}
 
 		ADTFUNCBEGIN
-		void PopStack(SqStack<ElemType>& S, ElemType& e)
+		ASSIGNPOP(SqStack,S,e)
 		{
-			if (StackEmpty(S))return;
+			if (SqStackEmpty(S))return false;
 			e = *(--S.top);
 			S.base[--S.StackSize] = {};
+			return true;
 		}
 
 		ADTCALLFUNCBEGIN
-		void StackTraverse(SqStack<ElemType>& S, Callable f)
+		ASSIGNTRANVERSE(SqStack, S, f)
 		{
 			auto p = S.base.get();
 			while (p < S.top)
@@ -69,5 +73,5 @@ ADTBEGIN
 				f(*p); ++p;
 			}
 		}
-	}
+ADTSUBEND;
 ADTEND

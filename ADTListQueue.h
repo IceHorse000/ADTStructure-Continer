@@ -3,8 +3,6 @@
 ADTBEGIN
 namespace ADTQueue	//ListQueue
 {
-#include<memory>
-
 	ADTCLASSBEGIN(ListQueue)
 	{
 		ElemType data = {};

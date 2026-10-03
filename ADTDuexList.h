@@ -4,7 +4,6 @@
 #endif // !LIST
 
 #include"ADTHelper.h"
-#include<memory>
 
 ADTBEGIN
 	ADTSUBBEGIN(DuexList)

@@ -3,7 +3,6 @@
 ADTBEGIN
 namespace ADTList		//Forward List
 {
-#include<memory>
 	ADTCLASSBEGIN(List){
 		ElemType data = {};
 	std::unique_ptr<List> next = nullptr;

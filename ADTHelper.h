@@ -1,4 +1,5 @@
 #pragma once
+#include<memory>
 template <class T1,class T2>
 constexpr inline auto Max(T1 a, T2 b) {
 	return a>b?a:b;
@@ -65,6 +66,7 @@ constexpr inline auto Min(T1 a, T2 b, TN... args) {
 #define ARGTYPE				ElemType
 #define ARGREFER			ARGTYPE&
 #define ARGCONSTREFER		const ARGREFER
+#define ARGPOINTER			ARGTYPE*
 #define ARGWARPPERPOINTER	std::unique_ptr<ARGTYPE>
 #endif
 
@@ -126,3 +128,10 @@ constexpr inline auto Min(T1 a, T2 b, TN... args) {
 #define ASSIGNENQUEUE(ADTNAME,ARG1,ARG2) ASSIGNFUNC(En,Queue,bool)(ADTINOUT(ADTNAME)ARG1,ARGIN ARG2)
 #define ASSIGNDEQUEUE(ADTNAME,ARG1,ARG2) ASSIGNFUNC(De,Queue,bool)(ADTINOUT(ADTNAME)ARG1,ARGOUT ARG2)
 #endif // QUEUE
+
+#ifdef STACK
+#define ASSIGNPUSH(ADTNAME,ARG1,ARG2) ASSIGNFUNC(Push,Stack,bool)(ADTINOUT(ADTNAME)ARG1,ARGIN ARG2)
+#define ASSIGNPOP(ADTNAME,ARG1,ARG2) ASSIGNFUNC(Pop,Stack,bool) (ADTINOUT(ADTNAME)ARG1,ARGOUT ARG2)
+#define ASSIGNTOP(ADTNAME,ARG1)	  ASSIGNFUNC(Get,Top,ARGTYPE)(ADTIN(ADTNAME)ARG1)
+#endif // STACK
+
