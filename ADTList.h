@@ -154,9 +154,9 @@ namespace ADTList		//Forward List
 		}
 
 		ADTFUNCBEGIN
-		void DeleteList(List<ElemType>& L, size_t pos)
+		bool ListDelete(List<ElemType>& L, size_t pos)
 		{
-			if (pos > ListLength(L))return;
+			if (pos > ListLength(L))return false;
 			size_t p = pos - 1, j = 0ull;
 			auto current = &L;
 			List<ElemType>* pnext = current->next.get();
@@ -168,6 +168,7 @@ namespace ADTList		//Forward List
 			}
 			auto old_node = std::move(current->next);
 			current->next = std::move(old_node->next);
+			return true;
 		}
 
 		template<typename ElemType,typename Callable>

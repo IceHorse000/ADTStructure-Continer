@@ -10,7 +10,7 @@ ADTBEGIN
 	ADTCLASSBEGIN(DuexList) 
 	{
 		ElemType _data = {};
-		ADTWRAPPERPOINTER(DuexList) next = nullptr;
+		ADTWARPPERPOINTER(DuexList) next = nullptr;
 		ADTPOINTER(DuexList) prev = nullptr;
 	}
 	ADTCLASSEND
@@ -30,7 +30,7 @@ ADTBEGIN
 		ADTPOINTER(DuexList) current = &D;
 		while (ADTCONSTPOINTER(DuexList)pnext=current->next.get())
 		{
-			ADTWRAPPERPOINTER(DuexList) old_node = std::move(current->next);
+			ADTWARPPERPOINTER(DuexList) old_node = std::move(current->next);
 			current->next = std::move(old_node->next);
 		}
 		current->next.reset();
@@ -168,7 +168,7 @@ ADTBEGIN
 		size_t i = 0;
 		ADTPOINTER(DuexList) curr = &D;
 		ADTPOINTER(DuexList) pnext = nullptr;
-		while ((pnext = curr->next.get()) && i < pos)
+		while ((pnext = curr->next.get()) && i < pos - 1)
 		{
 			curr = pnext;
 			i++;
@@ -198,12 +198,12 @@ ADTBEGIN
 		size_t i = 0;
 		ADTPOINTER(DuexList) curr = &D;
 		ADTPOINTER(DuexList) pnext = nullptr;
-		while ((pnext = curr->next.get()) && i < pos)
+		while ((pnext = curr->next.get()) && i < pos - 1)
 		{
 			curr = pnext;
 			i++;
 		}
-		if (i < pos)return false;
+		if (i < pos - 1)return false;
 		auto old_node = std::move(curr->next);
 		if (old_node == nullptr)return false;
 		curr->next = std::move(old_node->next);
@@ -216,7 +216,7 @@ ADTBEGIN
 		ASSIGNTRANVERSE(DuexList,D,f)
 	{
 		auto curr = &D;
-		while (ADTCONSTPOINTER(DuexList)pnext=curr->next.get())
+		while (ADTPOINTER(DuexList)pnext=curr->next.get())
 		{
 			curr = pnext;
 			f(curr->_data);

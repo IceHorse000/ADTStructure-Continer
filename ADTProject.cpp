@@ -1,17 +1,24 @@
 ﻿#include<iostream>
 #include<chrono>
-#include"ADTStack.h"
-using namespace std;
-using namespace ADT::ADTStack;
+#include"ADTDuexList.h"
+#include"ADTList.h"
+using namespace ADT::ADTDuexList;
+using namespace ADT::ADTList;
 int main()
 {
-	SqStack<int> S;
-	InitSqStack(S);
+	DuexList<int> L;
+	List<int>L2;
+	InitDuexList(L);
+	InitList(L2);
 	for (int i = 0; i < 10; i++)
-		PushStack(S, i);
-	TranverseSqStack(S, [](auto i) {std::cout << i << '\n'; });
-	int pad = 0;
+	{
+		DuexListInsert(L, 0, i);
+		ListInsert(L2, 0, i);
+	}
 	for (int i = 0; i < 3; i++)
-		PopStack(S, pad);
-	TranverseSqStack(S, [](auto i) {std::cout << i << '\n'; });
+	{
+		DuexListDelete(L, 1);
+		ListDelete(L2, 1);
+	}
+	TranverseDuexList(L, [](auto v) {std::cout << v << '\n'; });
 }
