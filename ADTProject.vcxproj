@@ -143,6 +143,7 @@
     <ClCompile Include="ADTProject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ADTArray.h" />
     <ClInclude Include="ADTCircleQueue.h" />
     <ClInclude Include="ADTComplex.h" />
     <ClInclude Include="ADTDuexList.h" />

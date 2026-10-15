@@ -13,6 +13,7 @@
 - ADTList.h：单链表实现（带排序、遍历、插入、删除等）
 - ADTSqList.h：顺序表（动态数组）实现
 - ADTDuexList.h：双向链表实现
+- ADTArray.h：数组辅助/封装（通用数组操作与工具）
 - ADTStack.h：顺序栈（基于动态数组）实现
 - ADTListQueue.h：链式队列实现
 - ADTCircleQueue.h：循环队列实现
@@ -21,7 +22,7 @@
 
 依赖与要求
 - Windows / Visual Studio（建议 2019 或 2022）或能编译 MSVC 项目的工具链
-- C++11 及以上（代码使用了 std::unique_ptr 与模板）
+- C++20 及以上（代码使用了 std::unique_ptr 与模板）
 
 构建与运行
 1. 使用 Visual Studio 打开 ADTProject.vcxproj，然后编译并运行。
