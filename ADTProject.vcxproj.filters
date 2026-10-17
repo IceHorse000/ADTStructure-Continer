@@ -50,5 +50,8 @@
     <ClInclude Include="ADTArray.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ADTString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

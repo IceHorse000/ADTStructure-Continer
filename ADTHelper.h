@@ -1,5 +1,9 @@
 #pragma once
+#undef OVERFLOW
 #include<memory>
+#include<string>
+#include<cstring>
+#include<stdexcept>
 template <class T1,class T2>
 constexpr inline auto Max(T1 a, T2 b) {
 	return a>b?a:b;
@@ -19,6 +23,11 @@ template<typename T1, typename T2, typename ...TN>
 constexpr inline auto Min(T1 a, T2 b, TN... args) {
 	return Min(Min(a, b), args...);
 }
+
+typedef enum Status :int
+{
+	OK, ERROR, OVERFLOW, INFEASIBLE
+}Status;
 
 #ifndef ADTCLASSBEGIN 
 #define ADTFUNCBEGIN			template<typename ElemType>
@@ -91,6 +100,8 @@ constexpr inline auto Min(T1 a, T2 b, TN... args) {
 #ifndef ADTARRAYTYPE
 #define ADTARRATTYPE std::unique_ptr<ARGTYPE[]> 
 #define ADTVECTORTYPE ARGWARPPERPOINTER
+#define ADTLENGTHTYPE std::unique_ptr<size_t[]>
+#define ASSIGNARRAY(TYPE,COUNT) std::make_unique<TYPE[]>((COUNT))
 #endif
 
 #ifndef ASSIGNFUNC
@@ -111,6 +122,16 @@ constexpr inline auto Min(T1 a, T2 b, TN... args) {
 #define ASSIGNLENGTH(ADTNAME,/*ARGLIST*/ARGNAME) ASSIGNLENGTHADT(ADTNAME)(ADTIN(ADTNAME)ARGNAME)
 #define ASSIGNTRANVERSE(ADTNAME,/*ARGLIST*/ARG1,ARG2) ASSIGNTRANVERSEADT(ADTNAME)(ADTINOUT(ADTNAME)ARG1,FUNCTYPE ARG2)
 #define ASSIGNELEMFUNC(OP,TYPE) TYPE OP##Elem 
+
+#define CHECK_AND_OPERATE(CONDITION,OPERATE) if(!(CONDITION))(OPERATE);
+#define CHECK_CONDITION(CONDITION) if(!(CONDITION))return false;
+#define CHECK_BOUND(POS,LIMIT)	CHECK_CONDITION((POS)<(LIMIT))
+#define CHECK_BOUND_WITH_LENGTH(POS,LENGTH,LIMIT) CHECK_CONDITION((POS)<(LIMIT)&&(POS+LENGTH)<(LIMIT))
+#define CHECK_AND_THROW(CONDITION,EXCEPTION,ERRORTEXT) CHECK_AND_OPERATE(CONDITION,throw EXCEPTION(ERRORTEXT))
+#define CHECK_BOUND_AND_THROW(POS,LIMIT) CHECK_AND_THROW(((POS)<(LIMIT)),std::out_of_range,"Index_out_at:"+std::to_string(POS))
+#define CHECK_LENGTH_AND_THROW(POS,LENGTH,LIMIT) CHECK_AND_THROW((((POS)<(LIMIT))&&((POS)+(LENGTH)<(LIMIT))),std::out_of_range,"Index_or_length_out_at "+std::to_string(POS)+","+std::to_string(LENGTH))
+
+#define RELEASE_POINTER(POINTER)	if(POINTER) POINTER=nullptr;
 
 #ifdef LIST
 
