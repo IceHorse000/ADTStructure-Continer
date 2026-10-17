@@ -266,6 +266,7 @@ bool Assign(Array<T>& A, T value,DimN ...dn)
 	try
 	{
 		get_elem(A, 0, 0, dn...) = std::move(value);
+		return true;
 	}
 	catch (const std::exception&)
 	{
